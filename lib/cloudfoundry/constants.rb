@@ -26,5 +26,8 @@ module CloudFoundry
 
     # CloudFoundry API Users Path.
     USERS_PATH = "/users"
+
+    # CloudFoundry API Keys Path.
+    KEYS_PATH = "/keys"
   end
 end

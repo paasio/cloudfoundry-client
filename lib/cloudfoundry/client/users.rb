@@ -122,7 +122,7 @@ module CloudFoundry
       # @return [Hash] A hash of the keys for the user.
       def list_keys()
         require_login
-        get("#{CloudFoundry::Client::USERS_PATH}/#{@user}/keys")
+        get(CloudFoundry::Client::KEYS_PATH)
       end
 
       # Creates a new ssh key for the user.
@@ -135,7 +135,7 @@ module CloudFoundry
         require_login
         raise CloudFoundry::Client::Exception::BadParams, "Name cannot be blank" if name.nil? || name.empty?
         raise CloudFoundry::Client::Exception::BadParams, "Data cannot be blank" if data.nil? || data.empty?
-        post("#{CloudFoundry::Client::USERS_PATH}/#{@user}/keys", { :name => name, :data => data })
+        post(CloudFoundry::Client::KEYS_PATH, { :name => name, :data => data })
         true
       end
 
@@ -147,7 +147,7 @@ module CloudFoundry
       def delete_key(name, data)
         require_login
         raise CloudFoundry::Client::Exception::BadParams, "Name cannot be blank" if name.nil? || name.empty?
-        delete("#{CloudFoundry::Client::USERS_PATH}/#{@user}/keys/#{name}", :raw => true)
+        delete("#{CloudFoundry::Client::KEYS_PATH}/#{name}", :raw => true)
       end
 
     end
