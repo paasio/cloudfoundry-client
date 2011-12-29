@@ -144,7 +144,7 @@ module CloudFoundry
       # @param [String] name The key's name.
       # @return [Boolean] Returns true if the key is deleted.
       # @raise [CloudFoundry::Client::Exception::BadParams] when name is blank.
-      def delete_key(name, data)
+      def delete_key(name)
         require_login
         raise CloudFoundry::Client::Exception::BadParams, "Name cannot be blank" if name.nil? || name.empty?
         delete("#{CloudFoundry::Client::KEYS_PATH}/#{name}", :raw => true)
