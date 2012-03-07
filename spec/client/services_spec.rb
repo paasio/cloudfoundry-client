@@ -83,6 +83,13 @@ describe "Cloudfoundry::Client::Services" do
       end
     end
 
+    it "should return true if the provisioned service is create with a specific tier" do
+      VCR.use_cassette("user_logged/services_create_with_plan_action", :record => :new_episodes, :exclusive => true) do
+        created = @cf_client.create_service("redis", "redis-mock", "reallybig")
+        created.should be_true
+      end
+    end
+
     it "should raise a BadRequest exception when creating a provisioned service that already exists at target cloud" do
       expect {
         created = @cf_client.create_service("redis", "redis-mock")

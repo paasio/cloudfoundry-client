@@ -27,12 +27,13 @@ module CloudFoundry
       #
       # @param [String] service The system service to provision.
       # @param [String] name The provisioned service name.
+      # @param [String] plan The name of the plan/tier.
       # @return [Boolean] Returns true if provisioned service is created.
       # @raise [CloudFoundry::Client::Exception::BadParams] when system service is blank.
       # @raise [CloudFoundry::Client::Exception::BadParams] when system service is not a valid service at target cloud.
       # @raise [CloudFoundry::Client::Exception::BadParams] when provisioned service name is blank.
       # @authenticated True
-      def create_service(service, name)
+      def create_service(service, name, plan='free')
         require_login
         raise CloudFoundry::Client::Exception::BadParams, "Service cannot be blank" if service.nil? || service.empty?
         raise CloudFoundry::Client::Exception::BadParams, "Name cannot be blank" if name.nil? || name.empty?
@@ -46,7 +47,7 @@ module CloudFoundry
                   :type => service_info[:type],
                   :vendor => vendor,
                   :version => version,
-                  :tier => "free"
+                  :tier => plan
                 }
                 break
               end
